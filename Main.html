@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Section</title>
+    <style>
+        body {
+            background-color: #000000;
+            margin: 0;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .categories {
+            margin-top: 50px;
+            display: flex;
+            gap: 40px;
+        }
+        .categories a {
+            text-decoration: none;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: color 0.3s ease;
+        }
+        .categories a.active {
+            color: #f39c12;
+        }
+        .categories a:hover {
+            color: #f39c12;
+        }
+        .separator {
+            width: 80%;
+            height: 2px;
+            background-color: #f39c12;
+            margin-top: 30px;
+        }
+        .home-content, .about-us-content, .games-content, .tic-tac-toe-page {
+            margin-top: 50px;
+            text-align: center;
+            color: white;
+            display: none;
+        }
+        .tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 10px;
+            margin: 20px 0;
+            justify-items: center;
+            align-items: center;
+        }
+        .tic-tac-toe-cell {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            border: 2px solid #f39c12;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+        }
+        .tic-tac-toe-cell:hover {
+            background-color: #555;
+        }
+        .restart-button {
+            background-color: #f39c12;
+            color: black;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .restart-button:hover {
+            background-color: #e67e22;
+        }
+        .game-status {
+            margin-top: 10px;
+            font-size: 1.2rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="categories">
+        <a href="#home" id="home" class="active">Home</a>
+        <a href="#about" id="about">About Us</a>
+        <a href="#games" id="games">Games</a>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Home Page Content -->
+    <div id="home-page" class="home-content" style="display: block;">
+        <h2>Welcome to the Home Page</h2>
+        <img src="slime.png" alt="Minecraft Slime" width="300">
+        <div class="bio">
+            <h3>About SlimeBob</h3>
+            <p>Hello, I'm SlimeBob, a YouTuber dedicated to creating content focused on Minecraft commands. In addition to my passion for gaming, I also have a love for coding and enjoy exploring new programming challenges.</p>
+        </div>
+    </div>
+
+    <!-- About Us Page Content -->
+    <div id="about-page" class="about-us-content">
+        <h2>About Us</h2>
+        <p>Thank you for visiting! Feel free to follow me on my social media platforms to stay updated on new content and projects. Connect with me on:</p>
+        <a href="https://www.youtube.com/@Slimebob" target="_blank">YouTube</a>
+        <a href="https://discord.com/invite/BXsmqzKqcZ" target="_blank">Discord</a>
+        <a href="https://www.instagram.com/slimebob2369/?igsh=MTRobmJkN2lmbDdnYQ%3D%3D" target="_blank">Instagram</a>
+        <a href="https://github.com/Slimebob2369" target="_blank">GitHub</a>
+    </div>
+
+    <!-- Games Page Content -->
+    <div id="games-page" class="games-content">
+        <h2>Select a Game</h2>
+        <div class="game-box" id="tic-tac-toe">Tic-Tac-Toe</div>
+    </div>
+
+    <!-- Tic-Tac-Toe Game Section -->
+    <div id="tic-tac-toe-page" class="tic-tac-toe-page">
+        <h2>Tic-Tac-Toe</h2>
+        <div id="tic-tac-toe-board" class="tic-tac-toe-board">
+            <div class="tic-tac-toe-cell" data-cell-index="0"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="1"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="2"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="3"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="4"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="5"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="6"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="7"></div>
+            <div class="tic-tac-toe-cell" data-cell-index="8"></div>
+        </div>
+        <button id="restart-game" class="restart-button">Restart Game</button>
+        <div id="game-status" class="game-status"></div>
+    </div>
+
+    <script>
+        // Select all category links
+        const categoryLinks = document.querySelectorAll('.categories a');
+
+        // Function to remove 'active' class from all links
+        function removeActiveClass() {
+            categoryLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+        }
+
+        // Add event listeners to each category link
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                removeActiveClass();  // Remove active class from all
+                link.classList.add('active');  // Add active class to clicked link
+
+                // Show corresponding page and hide others
+                const target = link.getAttribute('href').substring(1);
+                document.querySelectorAll('div[id$="-page"]').forEach(page => {
+                    page.style.display = (page.id === target + '-page') ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Initialize by showing the Home page and hiding others
+        document.getElementById('home-page').style.display = 'block';
+        document.getElementById('about-page').style.display = 'none';
+        document.getElementById('games-page').style.display = 'none';
+        document.getElementById('tic-tac-toe-page').style.display = 'none';
+
+        // Tic-Tac-Toe Game Logic
+        let board = Array(9).fill(null);
+        let currentPlayer = 'X';
+        let gameOver = false;
+
+        function handleCellClick(event) {
+            const cell = event.target;
+            const index = cell.getAttribute("data-cell-index");
+
+            if (board[index] || gameOver) return;
+
+            board[index] = currentPlayer;
+            cell.textContent = currentPlayer;
+
+            if (checkWinner(currentPlayer)) {
+                document.getElementById("game-status").textContent = `${currentPlayer} wins!`;
+                gameOver = true;
+                return;
+            }
+
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
+
+        function checkWinner(player) {
+            const winPatterns = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+
+            return winPatterns.some(pattern => {
+                return pattern.every(index => board[index] === player);
+            });
+        }
+
+        document.querySelectorAll('.tic-tac-toe-cell').forEach(cell => {
+            cell.addEventListener('click', handleCellClick);
+        });
+
+        document.getElementById("restart-game").addEventListener("click", function() {
+            board.fill(null);
+            currentPlayer = 'X';
+            gameOver = false;
+            document.querySelectorAll('.tic-tac-toe-cell').forEach(cell => cell.textContent = '');
+            document.getElementById("game-status").textContent = '';
+        });
+
+        // Show Tic-Tac-Toe game when clicked
+        document.getElementById('tic-tac-toe').addEventListener('click', function() {
+            document.getElementById('tic-tac-toe-page').style.display = 'block';
+            document.getElementById('games-page').style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>
+
+
+
+
