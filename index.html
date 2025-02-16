@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slimebob.com</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="Images/webicon.png" type="image/png">
+
+    <style>
+        /* Basic styling for the page */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('Images/webwallpaper.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header {
+            background-color: rgba(51, 51, 51, 0.8);
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        header img {
+            width: 50px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        nav {
+            text-align: center;
+            background-color: #444;
+            padding: 10px 0;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            padding: 10px;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: limegreen;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        nav a.active {
+            color: limegreen;
+            font-weight: bold;
+        }
+
+        .content {
+            padding: 20px;
+            text-align: center;
+            color: white;
+            display: none;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        footer {
+            background-image: url('Images/slimefooter.png');
+            background-repeat: repeat;
+            background-size: 150px;
+            opacity: 0.5;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Sign In/Sign Up Modal */
+        .sign-in-sign-up-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-radius: 8px;
+            color: white;
+            width: 300px;
+            display: none; /* Initially hidden */
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .sign-in-sign-up-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sign-in-sign-up-container input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+        }
+
+        .sign-in-sign-up-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: limegreen;
+            border: none;
+            border-radius: 20px; /* Rounded edge */
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .sign-in-sign-up-container button:hover {
+            background-color: #4CAF50;
+        }
+
+        .sign-in-toggle {
+            color: limegreen;
+            font-size: 14px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        /* Buttons in the top-right corner */
+        .top-right-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px; /* Space between buttons */
+            z-index: 9999;
+        }
+
+        .sign-in-button {
+            background-color: limegreen;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 20px; /* Rounded edge */
+            cursor: pointer;
+            border: none;
+        }
+
+        .sign-in-button:hover {
+            background-color: #4CAF50;
+        }
+
+        .settings-button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        .settings-icon {
+            width: 30px;
+            height: 30px;
+            filter: invert(1); /* Makes the icon white */
+        }
+
+        .settings-button:hover .settings-icon {
+            filter: invert(0.7); /* Slightly darker on hover */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <!-- Logo Image -->
+        <img src="Images/webicon.png" alt="Website Logo">
+        <h1>Welcome to Our Website</h1>
+    </header>
+
+    <nav>
+        <a href="#home" id="homeLink" class="active" onclick="changeContent('home')">Home</a>
+        <a href="#about" id="aboutLink" onclick="changeContent('about')">About Us</a>
+        <a href="#games" id="gamesLink" onclick="changeContent('games')">Games</a>
+    </nav>
+
+    <div id="home" class="content active">
+        <h2>Home Page</h2>
+        <p>Welcome to the homepage of our awesome website!</p>
+    </div>
+
+    <div id="about" class="content">
+        <h2>About Us</h2>
+        <p>We are a team of passionate developers creating cool stuff!</p>
+    </div>
+
+    <div id="games" class="content">
+        <h2>Games</h2>
+        <p>Check out our amazing games and have fun!</p>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Slimebobs Website</p>
+    </footer>
+
+    <!-- Sign-In/Sign-Up Modal -->
+    <div id="signInSignUpContainer" class="sign-in-sign-up-container">
+        <!-- Sign In Form -->
+        <div id="signInForm">
+            <h2>Sign In</h2>
+            <input type="text" id="signInUsername" placeholder="Username">
+            <input type="password" id="signInPassword" placeholder="Password">
+            <button onclick="signIn()">Sign In</button>
+            <p class="sign-in-toggle" onclick="switchToSignUp()">Don't have an account? Sign Up</p>
+        </div>
+
+        <!-- Sign Up Form -->
+        <div id="signUpForm" style="display: none;">
+            <h2>Sign Up</h2>
+            <input type="text" id="signUpUsername" placeholder="Username">
+            <input type="password" id="signUpPassword" placeholder="Password">
+            <button onclick="signUp()">Sign Up</button>
+            <p class="sign-in-toggle" onclick="switchToSignIn()">Already have an account? Sign In</p>
+        </div>
+    </div>
+
+    <!-- Top-Right Buttons (Sign-In and Settings) -->
+    <div class="top-right-buttons">
+        <!-- Sign-In Button -->
+        <button class="sign-in-button" onclick="toggleSignInSignUp()">Sign In / Sign Up</button>
+
+        <!-- Settings Button -->
+        <button class="settings-button" id="settingsButton" onclick="toggleSettings()">
+            <img src="Images/settingicon.png" alt="Settings" class="settings-icon">
+        </button>
+    </div>
+
+    <!-- Include the auth.js script -->
+    <script src="Scripts/auth.js"></script>
+
+    <script>
+        // Function for handling content switching (home, about, games)
+        function changeContent(contentId) {
+            // Hide all content sections
+            const contents = document.querySelectorAll('.content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Show the selected content
+            document.getElementById(contentId).classList.add('active');
+
+            // Update active link in navigation
+            const links = document.querySelectorAll('nav a');
+            links.forEach(link => link.classList.remove('active'));
+            document.getElementById(contentId + 'Link').classList.add('active');
+        }
+
+        // Function to handle settings button click
+        function toggleSettings() {
+            alert('Settings functionality will be added here!');
+            // You can add a settings modal or redirect to a settings page
+        }
+    </script>
+
+</body>
+</html>
+
