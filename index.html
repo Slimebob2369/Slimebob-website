@@ -175,6 +175,35 @@
         .settings-button:hover .settings-icon {
             filter: invert(0.7); /* Slightly darker on hover */
         }
+
+        /* Social Media Links */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: limegreen;
+        }
+
+        .social-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 10px;
+            filter: invert(1); /* Makes the icon white */
+        }
     </style>
 </head>
 
@@ -200,6 +229,26 @@
     <div id="about" class="content">
         <h2>About Us</h2>
         <p>We are a team of passionate developers creating cool stuff!</p>
+        
+        <!-- Social Media Links -->
+        <div class="social-links">
+            <a href="https://youtube.com/@Slimebob" target="_blank">
+                <img src="youtubeicon.png" alt="YouTube" class="social-icon">
+                YouTube
+            </a>
+            <a href="https://instagram.com/slimebob2369?igsh=MTRobmJkN2lmbDdnYQ==" target="_blank">
+                <img src="instagramicon.png" alt="Instagram" class="social-icon">
+                Instagram
+            </a>
+            <a href="https://discord.gg/BXsmqzKqcZ" target="_blank">
+                <img src="discordicon.png" alt="Discord Server" class="social-icon">
+                Discord Server
+            </a>
+            <a href="https://discord.com/users/slimebob5369" target="_blank">
+                <img src="discordicon.png" alt="Discord Account" class="social-icon">
+                Discord Account: slimebob5369
+            </a>
+        </div>
     </div>
 
     <div id="games" class="content">
@@ -271,4 +320,3 @@
 
 </body>
 </html>
-
